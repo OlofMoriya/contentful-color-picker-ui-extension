@@ -1,0 +1,34 @@
+<!doctype html>
+<head>
+  <link rel="stylesheet" href="https://contentful.github.io/ui-extensions-sdk/cf-extension.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.10/lodash.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+  <script src="https://unpkg.com/contentful-ui-extensions-sdk@3"></script>
+</head>
+<body>
+  <div id="color-picker" type="color"></div>
+  <script>
+    var cfExtension = window.contentfulExtension || window.contentfulWidget
+    var $ = window.$
+
+    cfExtension.init(function (api) {
+
+        $('#color-picker').change(()=> {
+          const newValue = $('#color-picker').val();
+          if (!_.isEqual(p, api.field.getValue())) {
+            api.field.setValue(newValue);
+          }
+        });
+
+        api.field.onValueChanged(function (p) {
+          if (!_.isEqual(p, api.field.getValue())) {
+            $('#color-picker').val(api.field.getValue());
+          }
+        });
+
+        api.window.updateHeight();
+
+        $('#color-picker').val(api.field.getValue());
+    });
+  </script>
+</body>
