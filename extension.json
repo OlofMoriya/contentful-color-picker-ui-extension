@@ -1,6 +1,5 @@
 {
-  "id": "color-picker-j123jsd82",
   "name": "Color picker",
   "srcdoc": "index.html",
-  "fieldTypes": ["string"]
+  "fieldTypes": ["Text", "Symbol"]
 }
