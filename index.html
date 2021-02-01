@@ -6,7 +6,10 @@
   <script src="https://unpkg.com/contentful-ui-extensions-sdk@3"></script>
 </head>
 <body>
-  <div id="color-picker" type="color"></div>
+  <div style="display: flex; flex-direction: row">
+  	<input id="color-picker" type="color" class="cf-form-input" style="max-width: 100px"></input>
+		<input id="color-text" class="cf-form-input" style="max-width: 200px"></input>
+	</div>
   <script>
     var cfExtension = window.contentfulExtension || window.contentfulWidget
     var $ = window.$
@@ -14,16 +17,25 @@
     cfExtension.init(function (api) {
 
         $('#color-picker').change(()=> {
+          console.log('$(#color-picker).change');
           const newValue = $('#color-picker').val();
-          if (!_.isEqual(p, api.field.getValue())) {
+          if (!_.isEqual(newValue, api.field.getValue())) {
+            api.field.setValue(newValue);
+          }
+        });
+      
+      	$('#color-text').change(()=> {
+          console.log('$(#color-text).change');
+          const newValue = $('#color-text').val();
+          if (!_.isEqual(newValue, api.field.getValue())) {
             api.field.setValue(newValue);
           }
         });
 
         api.field.onValueChanged(function (p) {
-          if (!_.isEqual(p, api.field.getValue())) {
-            $('#color-picker').val(api.field.getValue());
-          }
+          console.log('api.field.onValueChanged');
+          $('#color-picker').val(p);
+          $('#color-text').val(p);
         });
 
         api.window.updateHeight();
